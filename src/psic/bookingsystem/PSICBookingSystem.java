@@ -7,7 +7,7 @@ package psic.bookingsystem;
 
 /**
  *
- * @author Hart
+ * @author Hart Praise
  */
 public class PSICBookingSystem {
 
