@@ -5,7 +5,6 @@
  */
 package psic.bookingsystem;
 
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -23,6 +22,10 @@ public class Treatment {
         this.setRoom(room);
         this.setPeriod(period);
         this.setPhysician(physician);
+    }
+    
+    public Treatment() {
+        
     }
 
     /**
