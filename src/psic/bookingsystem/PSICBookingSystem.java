@@ -16,10 +16,11 @@ public class PSICBookingSystem {
     
     static Scanner input = new Scanner(System.in);
     static final int NUMBER_OF_PHYSICIANS = 5;
-    static final int NUMBER_OF_PATIENTS = 15;
+    static final int NUMBER_OF_PATIENTS = 16;
     static Physician[] physiciansList = new Physician[NUMBER_OF_PHYSICIANS];
     static Patient[] patientsList = new Patient[NUMBER_OF_PATIENTS];
     
+    //CREATE PHYSICIANS AND 15 PRE-REGISTERED PATIENTS FOR TESTING
     private static void autoCreatePatientsAndPhysicians() {
         String[] phy1Expertise = {"Physiotherapy", "Osteopathy"};
         String[] phy2Expertise = {"Rehabilitation", "Osteopathy"};
@@ -49,11 +50,39 @@ public class PSICBookingSystem {
         patientsList[13] = new Patient(14, "Amy Okoli", "6 Haloway Str, Lekki", "+447722343098");
         patientsList[14] = new Patient(15, "Dwayne Wade", "7b Haloway Str, Lekki", "+447009984431");
     }
+    
+    //ADD NEW PATIENT
+    private static void registerNewPatient() {
+        String patientName;
+	String patientAddress;
+	String patientPhoneNo;
+        
+        System.out.println("Enter your Name: ");
+	patientName = input.nextLine();
+        
+        System.out.println("Enter your Address: ");
+	patientAddress = input.nextLine();
+        
+        System.out.println("Enter your Phone Number: ");
+	patientPhoneNo = input.nextLine();
+        
+        patientsList[15] = new Patient(patientsList.length, patientName, patientAddress, patientPhoneNo);
+        System.out.println("\n------------------------------------------------------------------ "
+                + "\n" + patientName + " has been registered successfully, you can now proceed");
+    }
+    
+    public static void listPatients() {
+        for (int i = 0; i < NUMBER_OF_PATIENTS; i++) {
+            System.out.println(patientsList[i].toString());
+        }
+    }
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        autoCreatePatientsAndPhysicians();
+        registerNewPatient();
     }
     
 }
