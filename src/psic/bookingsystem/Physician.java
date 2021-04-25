@@ -14,12 +14,14 @@ public class Physician {
     private String fullName;
     private String address;
     private String phoneNumber;
+    private String[] expertise;
     
-    public Physician(int id, String name, String address, String phoneNo){
+    public Physician(int id, String name, String address, String phoneNo, String[] expertise){
         this.setId(id);
         this.setFullName(name);
         this.setAddress(address);
-        this.setPhoneNumber(phoneNo);    
+        this.setPhoneNumber(phoneNo);
+        this.setExpertise(expertise);
     }
     
     public Physician() {  
@@ -79,5 +81,19 @@ public class Physician {
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    /**
+     * @return the expertise
+     */
+    public String[] getExpertise() {
+        return expertise;
+    }
+
+    /**
+     * @param expertise the expertise to set
+     */
+    public void setExpertise(String[] expertise) {
+        this.expertise = expertise;
     }
 }

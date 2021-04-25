@@ -14,10 +14,10 @@ import java.util.Date;
 public class Treatment {
     private String name;
     private Physician physician;
-    private Date period;
-    private Room room;
+    private String period;
+    private String room;
     
-    public Treatment(String name, Physician physician, Date period, Room room) {
+    public Treatment(String name, Physician physician, String period, String room) {
         this.setName(name);
         this.setRoom(room);
         this.setPeriod(period);
@@ -59,28 +59,28 @@ public class Treatment {
     /**
      * @return the period
      */
-    public Date getPeriod() {
+    public String getPeriod() {
         return period;
     }
 
     /**
      * @param period the period to set
      */
-    public void setPeriod(Date period) {
+    public void setPeriod(String period) {
         this.period = period;
     }
 
     /**
      * @return the room
      */
-    public Room getRoom() {
+    public String getRoom() {
         return room;
     }
 
     /**
      * @param room the room to set
      */
-    public void setRoom(Room room) {
+    public void setRoom(String room) {
         this.room = room;
     }
     
