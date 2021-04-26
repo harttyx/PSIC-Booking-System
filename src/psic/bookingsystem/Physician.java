@@ -96,4 +96,10 @@ public class Physician {
     public void setExpertise(String[] expertise) {
         this.expertise = expertise;
     }
+    
+    @Override
+    public String toString() {
+        return id + ": " + fullName + ", " + address + ", " + phoneNumber + ", ['" + expertise[0] +
+                "', '" + expertise[1] + "']";
+    }
 }

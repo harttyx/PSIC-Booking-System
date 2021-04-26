@@ -19,14 +19,19 @@ public class PSICBookingSystem {
     static final int NUMBER_OF_PATIENTS = 16;
     static Physician[] physiciansList = new Physician[NUMBER_OF_PHYSICIANS];
     static Patient[] patientsList = new Patient[NUMBER_OF_PATIENTS];
+    static Expertise[] expertiseList = new Expertise[3];
     
     //CREATE PHYSICIANS AND 15 PRE-REGISTERED PATIENTS FOR TESTING
     private static void autoCreatePatientsAndPhysicians() {
-        String[] phy1Expertise = {"Physiotherapy", "Osteopathy"};
-        String[] phy2Expertise = {"Rehabilitation", "Osteopathy"};
-        String[] phy3Expertise = {"Physiotherapy", "Rehabilitation"};
-        String[] phy4Expertise = {"Osteopathy", "Physiotherapy"};
-        String[] phy5Expertise = {"Osteopathy", "Rehabilitation"};
+        expertiseList[0] = new Expertise("Physiotherapy");
+        expertiseList[1] = new Expertise("Osteopathy");
+        expertiseList[2] = new Expertise("Rehabilitation");
+        
+        String[] phy1Expertise = {expertiseList[0].toString(), expertiseList[1].toString()};
+        String[] phy2Expertise = {expertiseList[2].toString(), expertiseList[1].toString()};
+        String[] phy3Expertise = {expertiseList[0].toString(), expertiseList[2].toString()};
+        String[] phy4Expertise = {expertiseList[1].toString(), expertiseList[0].toString()};
+        String[] phy5Expertise = {expertiseList[1].toString(), expertiseList[2].toString()};
         
         physiciansList[0] = new Physician(1, "Dr Haasan Dua", "23 Chilterns, Hatfield", "+447789876343", phy1Expertise);
         physiciansList[1] = new Physician(2, "Dr Vetra jen", "21 Chilterns, Hatfield", "+447789773883", phy2Expertise);
@@ -68,14 +73,30 @@ public class PSICBookingSystem {
         
         patientsList[15] = new Patient(patientsList.length, patientName, patientAddress, patientPhoneNo);
         System.out.println("\n------------------------------------------------------------------ "
-                + "\n" + patientName + " has been registered successfully, you can now proceed");
+                + "\n" + patientName + " has been registered successfully, you can now proceed\n");
     }
     
+    //LIST ALL REGISTERED PATIENTS
     public static void listPatients() {
         for (int i = 0; i < NUMBER_OF_PATIENTS; i++) {
             System.out.println(patientsList[i].toString());
         }
     }
+    
+    //LIST ALL PHYSICIANS DETAILS
+    public static void listPhysicians() {
+        for (int i = 0; i < NUMBER_OF_PHYSICIANS; i++) {
+            System.out.println(physiciansList[i].toString());
+        }
+    }
+    
+    //VIEW ALL AREAS OF EXPERTISE
+    public static void listAreasOfExpertise() {
+        for (int i = 0; i < expertiseList.length; i++) {
+            System.out.println(i+1 + ": " + expertiseList[i].toString());
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -83,6 +104,8 @@ public class PSICBookingSystem {
         // TODO code application logic here
         autoCreatePatientsAndPhysicians();
         registerNewPatient();
+        listPhysicians();
+        listAreasOfExpertise();
     }
     
 }
