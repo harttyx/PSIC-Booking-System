@@ -389,8 +389,9 @@ public class PSICBookingSystem {
         System.out.println("\nWelcome to PSIC Patient Portal. Kindly select an option from the menu below");
         System.out.println("1. Book Appointment");
         System.out.println("2. Attend an Appointment");
-        System.out.println("3. View my Appointments");
-        System.out.println("4. Logout");
+        System.out.println("3. Cancel an Appointments");
+        System.out.println("4. View my Appointments");
+        System.out.println("5. Logout");
         
         do {
             String option = input.nextLine();
@@ -401,10 +402,14 @@ public class PSICBookingSystem {
                     badInput = false;
                     break;
                 case "2":
-                    viewUnattendedAppointment();
+                    viewUnattendedAppointment(false);
                     badInput = false;
                     break;
-                case "4":
+                case "3":
+                    viewUnattendedAppointment(true);
+                    badInput = false;
+                    break;
+                case "5":
                     System.out.println("Logging " + patient.getFullName() + " out.....");
                     visitorName = "";
                     badInput = false;
@@ -487,12 +492,51 @@ public class PSICBookingSystem {
                 }
                 break;
             }
+            
+            if ("0".equals(opt)) {
+                badInput = false;
+            }
         }
         } while(badInput);
     }
     
+    //CANCEL APPOINTMENT
+    private static void cancelAppointment(ArrayList<Appointment> appointment) {
+        boolean badInput = true;
+        System.out.println("0. Back to previous menu");
+        System.out.println("Select the appointment you wish to cancel by inputing the number");
+        do {
+            String opt = input.nextLine();
+            for (int i = 0; i < appointment.size(); i++) {
+                if((i+1 + "").equals(opt)) {
+                    badInput = false;
+                    for (int j = 0; j < appointmentList.size(); j++) {
+                        Appointment appointm = appointmentList.get(j);
+                        if (appointm == appointment.get(i)) {
+                            appointm.setCancelled(true);
+                            for (Treatment treatmentsList1 : treatmentsList) {
+                                if (treatmentsList1.getId() == appointm.getTreat().getId()) {
+                                    treatmentsList1.setBooked(false);
+                                    break;
+                                }
+                            }
+                            System.out.println("-----------------------------------------------"
+                                    + "\nYou have successfully cancelled this appointment\n"
+                                    + "-----------------------------------------------");
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }            
+            if ("0".equals(opt)) {
+                badInput = false;
+            }
+        } while(badInput);
+    }
+    
     //VIEW UNATTENDED APPOINTMENTS
-    private static void viewUnattendedAppointment() {
+    private static void viewUnattendedAppointment(boolean cancel) {
         if (appointmentList.size() > 0) {
             ArrayList<Appointment> appointments = new ArrayList<>();
             for (int i = 0; i < appointmentList.size(); i++) {
@@ -510,7 +554,11 @@ public class PSICBookingSystem {
                 for (int i = 0; i < appointments.size(); i++) {
                     System.out.println(i+1 + ". " + appointments.get(i).toString());
                 }
-                attendAppointment(appointments);
+                if (cancel) {
+                    cancelAppointment(appointments);
+                } else {
+                    attendAppointment(appointments);
+                }
                 
             } else {
                 System.out.println("You have no appointment that's yet to be attended...");
@@ -551,7 +599,7 @@ public class PSICBookingSystem {
             } while(badInput);
         } while(nameLoop);
     }
-    
+
     //START APPLICATION
     private static void startApp() {
         boolean systemLoop = true;
