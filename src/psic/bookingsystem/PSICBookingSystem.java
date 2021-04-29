@@ -5,8 +5,10 @@
  */
 package psic.bookingsystem;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -24,9 +26,10 @@ public class PSICBookingSystem {
     static Patient patient;
     
     static Physician[] physiciansList = new Physician[NUMBER_OF_PHYSICIANS];
-    static Patient[] patientsList = new Patient[NUMBER_OF_PATIENTS];
+    static ArrayList<Patient> patientsList = new ArrayList<>();
     static Treatment[] treatmentsList = new Treatment[20];
     static ArrayList<Appointment> appointmentList = new ArrayList<>();
+    static ArrayList<Consultation> consultationList = new ArrayList<>();
     static Expertise[] expertiseList = new Expertise[3];
     
     //CREATE PHYSICIANS AND 15 PRE-REGISTERED PATIENTS FOR TESTING
@@ -48,22 +51,24 @@ public class PSICBookingSystem {
         physiciansList[4] = new Physician(5, "Dr Hart Lucky", "25 Chilterns, Hatfield", "+447022989223", phy5Expertise);
     
         createTreatments();
+        Patient[] patientsLists = new Patient[15];
+        patientsLists[0] = new Patient(1, "Chris Rock", "72 Haloway Str, Lekki", "+447866822131");
+        patientsLists[1] = new Patient(2, "Victor Efedi", "71 Haloway Str, Lekki", "+447833294433");
+        patientsLists[2] = new Patient(3, "Susan Pwajok", "70 Haloway Str, Lekki", "+447888903372");
+        patientsLists[3] = new Patient(4, "Henry Smith", "73 Haloway Str, Lekki", "+447822909938");
+        patientsLists[4] = new Patient(5, "Chukwuemeka Favor", "23 Haloway Str, Lekki", "+447822909883");
+        patientsLists[5] = new Patient(6, "Rowe Stone", "18 Haloway Str, Lekki", "+447990877281");
+        patientsLists[6] = new Patient(7, "Hart Praise", "1 Haloway Str, Lekki", "+440093889877");
+        patientsLists[7] = new Patient(8, "Aworeni Dapo", "39 Haloway Str, Lekki", "+448890087899");
+        patientsLists[8] = new Patient(9, "Emeka Okwe", "34 Haloway Str, Lekki", "+440022933844");
+        patientsLists[9] = new Patient(10, "Visha Priya", "45 Haloway Str, Lekki", "+440092283348");
+        patientsLists[10] = new Patient(11, "Kazim Tarif", "46a Haloway Str, Lekki", "+449339909930");
+        patientsLists[11] = new Patient(12, "Faith Ali", "49 Haloway Str, Lekki", "+447799019928");
+        patientsLists[12] = new Patient(13, "Diana Eneje", "52 Haloway Str, Lekki", "+449894490449");
+        patientsLists[13] = new Patient(14, "Amy Okoli", "6 Haloway Str, Lekki", "+447722343098");
+        patientsLists[14] = new Patient(15, "Dwayne Wade", "7b Haloway Str, Lekki", "+447009984431");
         
-        patientsList[0] = new Patient(1, "Chris Rock", "72 Haloway Str, Lekki", "+447866822131");
-        patientsList[1] = new Patient(2, "Victor Efedi", "71 Haloway Str, Lekki", "+447833294433");
-        patientsList[2] = new Patient(3, "Susan Pwajok", "70 Haloway Str, Lekki", "+447888903372");
-        patientsList[3] = new Patient(4, "Henry Smith", "73 Haloway Str, Lekki", "+447822909938");
-        patientsList[4] = new Patient(5, "Chukwuemeka Favor", "23 Haloway Str, Lekki", "+447822909883");
-        patientsList[5] = new Patient(6, "Rowe Stone", "18 Haloway Str, Lekki", "+447990877281");
-        patientsList[6] = new Patient(7, "Hart Praise", "1 Haloway Str, Lekki", "+440093889877");
-        patientsList[7] = new Patient(8, "Aworeni Dapo", "39 Haloway Str, Lekki", "+448890087899");
-        patientsList[8] = new Patient(9, "Emeka Okwe", "34 Haloway Str, Lekki", "+440022933844");
-        patientsList[9] = new Patient(10, "Visha Priya", "45 Haloway Str, Lekki", "+440092283348");
-        patientsList[10] = new Patient(11, "Kazim Tarif", "46a Haloway Str, Lekki", "+449339909930");
-        patientsList[11] = new Patient(12, "Faith Ali", "49 Haloway Str, Lekki", "+447799019928");
-        patientsList[12] = new Patient(13, "Diana Eneje", "52 Haloway Str, Lekki", "+449894490449");
-        patientsList[13] = new Patient(14, "Amy Okoli", "6 Haloway Str, Lekki", "+447722343098");
-        patientsList[14] = new Patient(15, "Dwayne Wade", "7b Haloway Str, Lekki", "+447009984431");
+        patientsList.addAll(Arrays.asList(patientsLists));
     }
     
     //CREATE TREATMENTS FOR EACH PHYSICIAN
@@ -110,15 +115,18 @@ public class PSICBookingSystem {
         System.out.println("Enter your Phone Number: ");
 	patientPhoneNo = input.nextLine();
         
-        patientsList[15] = new Patient(patientsList.length, patientName, patientAddress, patientPhoneNo);
+        patient = new Patient(patientsList.size() + 1, patientName, patientAddress, patientPhoneNo);
+        patientsList.add(patient);
         System.out.println("\n------------------------------------------------------------------ "
-                + "\n" + patientName + " has been registered successfully, you can now proceed\n");
+                + "\n" + patientName + " has been registered successfully, enter any key to proceed");
+        input.nextLine();
+        patientLogin();
     }
     
     //LIST ALL REGISTERED PATIENTS
     private static void listPatients() {
-        for (int i = 0; i < NUMBER_OF_PATIENTS; i++) {
-            System.out.println(patientsList[i].toString());
+        for (int i = 0; i < patientsList.size(); i++) {
+            System.out.println(patientsList.get(i).toString());
         }
     }
     
@@ -181,6 +189,19 @@ public class PSICBookingSystem {
         return physicians;
     }
     
+    private static void bookConsultation(Physician physician) {
+        Consultation consult = new Consultation(physician, visitorName);
+        consultationList.add(consult);
+        System.out.println("-------------------------------------------------------");
+        System.out.println("You have successfully booked a consultation with " + physician.getFullName()
+                + "\nDate: " + consult.getDt().format(DateTimeFormatter.ISO_DATE) + "\nTime: " + consult.getDt().toLocalTime().toString()
+        );
+        System.out.println("-------------------------------------------------------");
+        System.out.println("Enter any key to proceed.");
+        input.nextLine();
+        visitor();
+    }
+    
     //SHOW PHYSICIAN BY EXPERTISE
     private static void showPhysicianByExpertise(int index) {
         Physician[] physicians;
@@ -193,20 +214,17 @@ public class PSICBookingSystem {
                 System.out.println(i+1 + ". " + physicians[i].toString());
             }
             System.out.println("0. Back to previous menu");
-            System.out.println("Select a Physician from the options above to view his/her available consultation hours");
+            System.out.println("Select a Physician from the options above to book a consultation with him/her");
             
             do {
                 String option = input.nextLine();
                 
-                switch(option) {
-                    case "0":
+                for(int i = 0; i < physicians.length; i++) {
+                    if (option.equals((i + 1) + "")) {
                         badInput = false;
-                        phyLoop = false;
+                        bookConsultation(physicians[i]);
                         break;
-                    case "1":
-                         
-                    default:
-                        break;
+                    }
                 }
             } while (badInput);
         } while (phyLoop);
@@ -331,15 +349,82 @@ public class PSICBookingSystem {
         } while(expertiseLoop);
     }
     
+    //FIRST REPORT
+    private static void firstReport() {
+        if (appointmentList.size() > 0) {
+            System.out.println("Here's a list of all patients appointments and their details");
+            System.out.println("----------------------------------------------------------------");
+            appointmentList.forEach((appointmnt) -> {
+                System.out.println(appointmnt + "Patient: " + appointmnt.getPerson().getFullName()
+                        + "\nPhysician: " + appointmnt.getTreat().getPhysician().getFullName()
+                        + "\nAttended: " +appointmnt.isAttended()
+                        + "\nCancelled: " +appointmnt.isCancelled() + "\n"
+                );
+            });
+            System.out.println("----------------------------------------------------------------");
+        } else {
+            System.out.println("No patient appointment was booked.");
+        }
+        if (consultationList.size() > 0) {
+            System.out.println("Here's a list of all visitor consultation details");
+            System.out.println("----------------------------------------------------------------");
+            consultationList.forEach((consultation) -> {
+                System.out.println("Consultation with " + consultation.getPhysician().getFullName()
+                        + "\nTime: " + consultation.getDt().format(DateTimeFormatter.ISO_DATE) + ", "
+                                + consultation.getDt().toLocalTime().toString()
+                        + "\nVisitor Name: " + consultation.getVisitorName() + "\n"
+                );
+            });
+            System.out.println("----------------------------------------------------------------");
+        } else {
+            System.out.println("No Visitor appointment was booked.");
+        }
+        System.out.println("Press any key to proceed");
+        input.nextLine();
+    }
+    
     //VIEW PHYSICIAN BY NAME
     private static void viewPhysicianByName() {
         boolean nameLoop = true;
-        System.out.println("\n");
         
         do{
             listPhysicians();
             System.out.println("0. Back to previous menu");
-            nameLoop = false;
+            System.out.println("Select a Physician from the options above to book a consultation with him/her");
+            boolean badInput = true;
+            
+            do {
+                String option = input.nextLine();
+                
+                switch(option) {
+                    case "0":
+                        badInput = false;
+                        nameLoop = false;
+                        break;
+                    case "1":
+                        badInput = false;
+                        bookConsultation(physiciansList[0]);
+                        break;
+                    case "2":
+                        badInput = false;
+                        bookConsultation(physiciansList[1]);
+                        break;
+                    case "3":
+                        badInput = false;
+                        bookConsultation(physiciansList[2]);
+                        break;
+                    case "4":
+                        badInput = false;
+                        bookConsultation(physiciansList[3]);
+                        break;
+                    case "5":
+                        badInput = false;
+                        bookConsultation(physiciansList[4]);
+                        break;
+                    default:
+                        break;
+                }
+            } while (badInput);
         } while(nameLoop);
     }
     
@@ -371,6 +456,7 @@ public class PSICBookingSystem {
                     visitorName = "";
                     badInput = false;
                     visitorLoop = false;
+                    startApp();
                     break;
                 default:
                     break;
@@ -648,9 +734,8 @@ public class PSICBookingSystem {
             System.out.println("1. Login as a Visitor");
             System.out.println("2. Login as a Patient");
             System.out.println("3. Register as a new Patient");
-            System.out.println("4. Generate Report-1");
-            System.out.println("5. Generate Report-2");
-            System.out.println("6. Exit\n");
+            System.out.println("4. Generate Report");
+            System.out.println("5. Exit\n");
 
             do {
                 String selectedOption = input.nextLine();
@@ -690,11 +775,9 @@ public class PSICBookingSystem {
                         break;
                     case "4":
                         badInput = false;
+                        firstReport();
                         break;
                     case "5":
-                        badInput = false;
-                        break;
-                    case "6":
                         badInput = false;
                         systemLoop = false;
                         System.out.println("Exiting System.....");
