@@ -401,7 +401,7 @@ public class PSICBookingSystem {
                     badInput = false;
                     break;
                 case "2":
-                    viewPhysicianByName();
+                    viewUnattendedAppointment();
                     badInput = false;
                     break;
                 case "4":
@@ -465,27 +465,52 @@ public class PSICBookingSystem {
         } while(nameLoop);
     }
     
+    //ATTEND APPOINTMENT
+    private static void attendAppointment(ArrayList<Appointment> appointment) {
+        boolean badInput = true;
+        System.out.println("Select the appointment you wish to attend by inputing the number");
+        do {
+        String opt = input.nextLine();
+        
+        for (int i = 0; i < appointment.size(); i++) {
+            if((i+1 + "").equals(opt)) {
+                badInput = false;
+                for (int j = 0; j < appointmentList.size(); j++) {
+                    Appointment appointm = appointmentList.get(j);
+                    if (appointm == appointment.get(i)) {
+                        appointm.setAttended(true);
+                        System.out.println("-----------------------------------------------"
+                                + "\nYou have successfully attended this appointment\n"
+                                + "-----------------------------------------------");
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        } while(badInput);
+    }
+    
     //VIEW UNATTENDED APPOINTMENTS
     private static void viewUnattendedAppointment() {
         if (appointmentList.size() > 0) {
-            Appointment[] appointments = {};
-            int count = 0;
+            ArrayList<Appointment> appointments = new ArrayList<>();
             for (int i = 0; i < appointmentList.size(); i++) {
                 Appointment appointment1 = appointmentList.get(i);
                 Patient p = appointment1.getPerson();
                 if (p.getFullName().equals(patient.getFullName())) {
                     if (!appointment1.isAttended() && !appointment1.isCancelled()) {
-                        appointments[count] = appointment1;
-                        count++;
+                        appointments.add(appointment1);
                     }
                 }
             }
-            if (appointments.length > 0) {
+            if (appointments.size() > 0) {
                 System.out.println("------------------------------------------------------------"
                 + "\nHere are your upcoming appointments that you're yet to attend");
-                for (Appointment appointment : appointments) {
-                    System.out.println(appointment.toString());
+                for (int i = 0; i < appointments.size(); i++) {
+                    System.out.println(i+1 + ". " + appointments.get(i).toString());
                 }
+                attendAppointment(appointments);
                 
             } else {
                 System.out.println("You have no appointment that's yet to be attended...");

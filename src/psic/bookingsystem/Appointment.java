@@ -83,13 +83,16 @@ public class Appointment {
     }
     
     public void bookedSuccessfully() {
-        System.out.println("You have successfully booked an appointment for " + treat.getName() + ".\nRoom: " + 
-                treat.getRoom() + "\nTime: " + treat.getPeriod());
+        System.out.println("---------------------------------------------------------------\n"
+                + "You have successfully booked an appointment for " + treat.getName() + ".\nRoom: " + 
+                treat.getRoom() + "\nTime: " + treat.getPeriod()
+                + "\n---------------------------------------------------------------"
+        );
     }
     
     @Override
     public String toString() {
         return "Appointment: " + treat.getName() + ".\nRoom: " + 
-                treat.getRoom() + "\nTime: " + treat.getPeriod();
+                treat.getRoom() + "\nTime: " + treat.getPeriod() + "\n";
     }
 }
