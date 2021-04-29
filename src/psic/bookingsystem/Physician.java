@@ -99,7 +99,8 @@ public class Physician {
     
     @Override
     public String toString() {
-        return id + ": " + fullName + ", " + address + ", " + phoneNumber + ", ['" + expertise[0] +
-                "', '" + expertise[1] + "']";
+        return fullName;
+//        return fullName + ", " + address + ", " + phoneNumber + ", ['" + expertise[0] +
+//                "', '" + expertise[1] + "']";
     }
 }

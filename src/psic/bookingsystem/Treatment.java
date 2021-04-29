@@ -13,14 +13,18 @@ package psic.bookingsystem;
 public class Treatment {
     private String name;
     private Physician physician;
+    private int id;
     private String period;
     private String room;
+    private boolean booked;
     
-    public Treatment(String name, Physician physician, String period, String room) {
+    public Treatment(int id, String name, Physician physician, String period, String room) {
+        this.setId(id);
         this.setName(name);
         this.setRoom(room);
         this.setPeriod(period);
         this.setPhysician(physician);
+        this.setBooked(false);
     }
     
     public Treatment() {
@@ -81,6 +85,39 @@ public class Treatment {
      */
     public void setRoom(String room) {
         this.room = room;
+    }
+    
+    @Override
+    public String toString() {
+        return name + "\nPhysician: " + physician.getFullName() + "\nTime: " + period + "\nRoom: " + room + "\n";
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the booked
+     */
+    public boolean isBooked() {
+        return booked;
+    }
+
+    /**
+     * @param booked the booked to set
+     */
+    public void setBooked(boolean booked) {
+        this.booked = booked;
     }
     
 }
