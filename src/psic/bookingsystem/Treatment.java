@@ -5,7 +5,6 @@
  */
 package psic.bookingsystem;
 
-import java.util.Date;
 
 /**
  *
@@ -14,14 +13,18 @@ import java.util.Date;
 public class Treatment {
     private String name;
     private Physician physician;
-    private Date period;
-    private Room room;
+    private int id;
+    private String period;
+    private String room;
+    private boolean booked;
     
-    public Treatment(String name, Physician physician, Date period, Room room) {
+    public Treatment(int id, String name, Physician physician, String period, String room) {
+        this.setId(id);
         this.setName(name);
         this.setRoom(room);
         this.setPeriod(period);
         this.setPhysician(physician);
+        this.setBooked(false);
     }
     
     public Treatment() {
@@ -59,29 +62,62 @@ public class Treatment {
     /**
      * @return the period
      */
-    public Date getPeriod() {
+    public String getPeriod() {
         return period;
     }
 
     /**
      * @param period the period to set
      */
-    public void setPeriod(Date period) {
+    public void setPeriod(String period) {
         this.period = period;
     }
 
     /**
      * @return the room
      */
-    public Room getRoom() {
+    public String getRoom() {
         return room;
     }
 
     /**
      * @param room the room to set
      */
-    public void setRoom(Room room) {
+    public void setRoom(String room) {
         this.room = room;
+    }
+    
+    @Override
+    public String toString() {
+        return name + "\nPhysician: " + physician.getFullName() + "\nTime: " + period + "\nRoom: " + room + "\n";
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the booked
+     */
+    public boolean isBooked() {
+        return booked;
+    }
+
+    /**
+     * @param booked the booked to set
+     */
+    public void setBooked(boolean booked) {
+        this.booked = booked;
     }
     
 }

@@ -34,4 +34,9 @@ public class Expertise {
         this.fieldOfExpertise = fieldOfExpertise;
     }
     
+    @Override
+    public String toString() {
+        return fieldOfExpertise;
+    }
+    
 }

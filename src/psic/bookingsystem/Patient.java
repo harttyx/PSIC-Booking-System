@@ -81,4 +81,8 @@ public class Patient {
         this.phoneNumber = phoneNumber;
     }
     
+    @Override
+    public String toString() {
+        return id + ": " + fullName + ", " + address + ", " + phoneNumber;
+    } 
 }

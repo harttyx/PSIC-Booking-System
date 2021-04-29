@@ -58,7 +58,8 @@ public class TreatmentTest {
     public void testGetPhysician() {
         System.out.println("getPhysician");
         Treatment instance = new Treatment();
-        Physician expResult = new Physician(0,"Test Physician", "unknown", "unknown");
+        String[] expertise = {"Physiotherapy", "Massage"};
+        Physician expResult = new Physician(0,"Test Physician", "unknown", "unknown", expertise);
         instance.setPhysician(expResult);
         Physician result = instance.getPhysician();
         assertEquals(expResult, result);
@@ -71,9 +72,9 @@ public class TreatmentTest {
     public void testGetPeriod() {
         System.out.println("getPeriod");
         Treatment instance = new Treatment();
-        Date expResult = new Date();
+        String expResult = "21-04-2021, 12:48pm";
         instance.setPeriod(expResult);
-        Date result = instance.getPeriod();
+        String result = instance.getPeriod();
         assertEquals(expResult, result);
     }
 
@@ -84,10 +85,10 @@ public class TreatmentTest {
     public void testGetRoom() {
         System.out.println("getRoom");
         Treatment instance = new Treatment();
-        Room expResult = new Room();
+        String expResult = "Room A";
         System.out.println(expResult);
         instance.setRoom(expResult);
-        Room result = instance.getRoom();
+        String result = instance.getRoom();
         assertEquals(expResult, result);
     }
     
