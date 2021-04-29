@@ -409,6 +409,10 @@ public class PSICBookingSystem {
                     viewUnattendedAppointment(true);
                     badInput = false;
                     break;
+                case "4":
+                    myAppointments();
+                    badInput = false;
+                    break;
                 case "5":
                     System.out.println("Logging " + patient.getFullName() + " out.....");
                     visitorName = "";
@@ -473,6 +477,7 @@ public class PSICBookingSystem {
     //ATTEND APPOINTMENT
     private static void attendAppointment(ArrayList<Appointment> appointment) {
         boolean badInput = true;
+        System.out.println("0. Back to previous menu");
         System.out.println("Select the appointment you wish to attend by inputing the number");
         do {
         String opt = input.nextLine();
@@ -533,6 +538,39 @@ public class PSICBookingSystem {
                 badInput = false;
             }
         } while(badInput);
+    }
+    
+    //VIEW ALL PATIENTS APPOINTMENTS
+    private static void myAppointments() {
+        if (appointmentList.size() > 0) {
+            ArrayList<Appointment> appointments = new ArrayList<>();
+            for (int i = 0; i < appointmentList.size(); i++) {
+                Appointment appointment1 = appointmentList.get(i);
+                Patient p = appointment1.getPerson();
+                if (p.getFullName().equals(patient.getFullName())) {
+                    appointments.add(appointment1);
+                }
+            }
+            if (appointments.size() > 0) {
+                System.out.println("------------------------------------------------------------"
+                + "\nHere's a list of all your appointments");
+                for (int i = 0; i < appointments.size(); i++) {
+                    System.out.println(i+1 + ". " + appointments.get(i).toString() 
+                            + "Attended: " + appointments.get(i).isAttended()
+                            + "\nCancelled: " + appointments.get(i).isCancelled() + "\n"
+                    );
+                }
+                System.out.println("\nPress any key to go back");
+                input.nextLine();
+                
+            } else {
+                System.out.println("You have no appointments booked, kindly book an appointment before you can view it.");               
+            }
+            
+            
+        } else {
+            System.out.println("You have no appointments booked, kindly book an appointment before you can view it.");
+        }
     }
     
     //VIEW UNATTENDED APPOINTMENTS
