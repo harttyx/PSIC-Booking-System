@@ -356,7 +356,9 @@ public class PSICBookingSystem {
             System.out.println("----------------------------------------------------------------");
             appointmentList.forEach((appointmnt) -> {
                 System.out.println(appointmnt + "Patient: " + appointmnt.getPerson().getFullName()
-                        + "\nPhysician: " + appointmnt.getTreat().getPhysician().getFullName() + "\n"
+                        + "\nPhysician: " + appointmnt.getTreat().getPhysician().getFullName()
+                        + "\nAttended: " +appointmnt.isAttended()
+                        + "\nCancelled: " +appointmnt.isCancelled() + "\n"
                 );
             });
             System.out.println("----------------------------------------------------------------");
